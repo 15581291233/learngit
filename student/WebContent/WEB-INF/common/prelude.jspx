@@ -1,0 +1,8 @@
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="/tags/jstl-core" prefix="c" %>
+<%@ taglib uri="/tags/sg" prefix="sg" %>
+<c:set var="ctxPath" value="${pageContext.request.contextPath}" />
+<%
+    response.setHeader("Cache-Control", "public");
+    response.setDateHeader("Expires", Long.MAX_VALUE);
+%>

@@ -1,0 +1,1 @@
+<div class="panel pannel-inner<#if bean.marginTop!false>2</#if>">

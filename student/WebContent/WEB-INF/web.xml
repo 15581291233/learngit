@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>web for student</display-name>
+
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+    
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>com.skywares.fw.web.filter.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>authFilter</filter-name>
+        <filter-class>com.student.filter.AuthFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>authFilter</filter-name>
+        <url-pattern>/app/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>InitServlet</servlet-name>
+        <servlet-class>com.skywares.fw.web.servlet.InitServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:application.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>securityCode</servlet-name>
+        <servlet-class>com.skywares.fw.web.servlet.SecurityCodeServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>/app/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>securityCode</servlet-name>
+        <url-pattern>/securityCode</url-pattern>
+    </servlet-mapping>
+
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <session-config>
+        <session-timeout>150</session-timeout>
+    </session-config>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/common/404.jsp</location>
+    </error-page>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>/tags/jstl-core</taglib-uri>
+            <taglib-location>/WEB-INF/tld/c.tld</taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>/tags/tiles</taglib-uri>
+            <taglib-location>/WEB-INF/tld/tiles-jsp.tld</taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>/tags/tilesx</taglib-uri>
+            <taglib-location>/WEB-INF/tld/tiles-extras-jsp.tld</taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>/tags/sg</taglib-uri>
+            <taglib-location>/WEB-INF/tld/sg.tld</taglib-location>
+        </taglib>
+        <jsp-property-group>
+            <description>JSP setting</description>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+            <include-prelude>/WEB-INF/common/prelude.jspx</include-prelude>
+        </jsp-property-group>
+
+        <jsp-property-group>
+            <url-pattern>*.jspx</url-pattern>
+            <is-xml>false</is-xml>
+        </jsp-property-group>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <deferred-syntax-allowed-as-literal>true</deferred-syntax-allowed-as-literal>
+        </jsp-property-group>
+        <jsp-property-group>
+            <url-pattern>*.jspx</url-pattern>
+            <deferred-syntax-allowed-as-literal>true</deferred-syntax-allowed-as-literal>
+        </jsp-property-group>
+    </jsp-config>
+</web-app>

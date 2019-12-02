@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- system configurations overriding default value -->
+    <include>classpath:config-app.xml</include>
+    
+    <!-- add default configurations -->
+    <include>classpath:config-fw-core.xml</include>
+    <include>classpath:config-fw-web.xml</include>
+</configuration>

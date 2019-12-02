@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error" strict="true" monitorInterval="30">
+    <Properties>
+        <Property name="ptn">[%d{yyyy-MM-dd HH:mm:ss,SSS}] %-5p %c{1}.%t - %m%n</Property>
+        <Property name="logroot">log</Property>
+    </Properties>
+
+    <appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY" />
+            <PatternLayout pattern="${ptn}" />
+        </Console>
+
+        <RollingFile name="file" fileName="${logroot}/appadmin.log"
+            filePattern="${logroot}/appadmin-%d{yyyyMMdd}-%i.log.gz">
+            <PatternLayout pattern="${ptn}" />
+            <SizeBasedTriggeringPolicy size="10MB" />
+            <DefaultRolloverStrategy max="20" />
+        </RollingFile>
+        
+        <RollingFile name="trace-file" fileName="${logroot}/appadmin-trace.log"
+            filePattern="${logroot}/appadmin-trace-%d{yyyyMMdd}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS} - %m%n" />
+            <SizeBasedTriggeringPolicy size="10MB" />
+            <DefaultRolloverStrategy max="20" />
+        </RollingFile>
+        
+        <Async name="async">
+            <AppenderRef ref="file" />
+        </Async>
+        
+        <RollingFile name="security-audit" fileName="app-security-audit.log"
+            filePattern="app-security-audit-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss,SSS Z}] - %m%n" />
+            <SizeBasedTriggeringPolicy size="10MB" />
+            <DefaultRolloverStrategy max="20" />
+        </RollingFile>
+        
+        <RollingFile name="security-access" fileName="app-security-access.log"
+            filePattern="app-security-access-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss,SSS Z}] - %m%n" />
+            <SizeBasedTriggeringPolicy size="10MB" />
+            <DefaultRolloverStrategy max="20" />
+        </RollingFile>
+        
+        <RollingFile name="job" fileName="${logroot}/job.log" 
+            filePattern="log/$${date:yyyy-MM}/job-%d{MM-dd-yyyy}-%i.log.gz"> 
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss,SSS}] - %m%n" />
+            <SizeBasedTriggeringPolicy size="10MB" /> 
+            <DefaultRolloverStrategy max="20" /> 
+        </RollingFile>
+    </appenders>
+    
+    <loggers>
+        <logger name="security-audit" level="trace" additivity="false">
+            <appender-ref ref="security-audit" />
+        </logger>
+        
+        <logger name="security-access" level="trace" additivity="false">
+            <appender-ref ref="security-access" />
+        </logger>
+        
+        <logger name="job" level="debug" additivity="false"> 
+            <appender-ref ref="job" /> 
+        </logger>
+        
+        <logger name="com.shengg" level="debug" />
+        <logger name="com.skywares.fw.dao.generic.model" level="warn" />
+        <logger name="com.skywares.fw.dao.generic.SqlParser" level="warn" />
+        <logger name="com.skywares.fw.dao.generic.SqlManager" level="warn" />
+        <logger name="com.skywares.fw.dao.generic.dialect" level="warn" />
+        <logger name="com.skywares.fw.util" level="warn" />
+        <logger name="com.skywares" level="debug" />
+        
+        <logger name="trace-log" level="debug" additivity="false">
+            <appender-ref ref="trace-file" />
+        </logger>
+        
+        <root level="warn">
+            <appender-ref ref="console" />
+            <appender-ref ref="file" />
+        </root>
+    </loggers>
+
+</Configuration> 

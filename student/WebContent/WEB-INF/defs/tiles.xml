@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE tiles-definitions PUBLIC  
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <definition name="main" template="/WEB-INF/jsp/index/index.jsp">
+     <put-attribute name="header" value="/WEB-INF/jsp/common/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/jsp/common/menu.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/jsp/common/footer.jsp" />
+    </definition>
+    
+    <definition name="inner" template="/WEB-INF/jsp/template/inner.jsp">
+        <put-attribute name="body" value="" />
+    </definition>
+    
+    <!-- 平台 -->
+    <definition name="admin.*.*" extends="main">
+        <put-attribute name="body" value="/WEB-INF/jsp/admin/{1}/{2}.jsp" />
+    </definition>
+    
+    <!-- 房东PC端  -->
+    <definition name="fdadmin.*.*" extends="main">
+        <put-attribute name="body" value="/WEB-INF/jsp/fdadmin/{1}/{2}.jsp" />
+    </definition>
+    
+    <definition name="fdlogin" template="/WEB-INF/jsp/template/simple.jsp">
+        <put-attribute name="body" value="/WEB-INF/jsp/index/fdlogin.jsp" />
+    </definition>
+    
+    <definition name="adlogin" template="/WEB-INF/jsp/template/simple.jsp">
+        <put-attribute name="body" value="/WEB-INF/jsp/index/adlogin.jsp" />
+    </definition>
+    
+    <definition name="forgotPwd" extends="main">
+        <put-attribute name="body" value="/WEB-INF/jsp/common/forgotPwd.jsp" />
+    </definition>
+    
+    <definition name="error" extends="main"  >
+        <put-attribute name="body" value="/WEB-INF/jsp/common/error.jsp" />
+    </definition>
+    
+    <!-- generic definitions  -->
+    <definition name="*.*" extends="main">
+        <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+    </definition>
+    
+    <definition name="fdMain" template="/WEB-INF/jsp/index/fdIndex.jsp">
+         <put-attribute name="fdBody" value="" />
+    </definition>
+    
+    <!-- 房东PC端  -->
+   <!--  <definition name="*.*" extends="fdMain">
+        <put-attribute name="fdBody" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+    </definition> -->
+        
+</tiles-definitions>
